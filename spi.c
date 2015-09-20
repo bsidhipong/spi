@@ -36,6 +36,7 @@
     defined(__AVR_ATmega328__) || \
     defined(__AVR_ATmega328P__) 
 #define DDR_SPI		DDRB
+#define DD_SS		DDB2
 #define DD_MOSI		DDB3
 #define DD_MISO		DDB4
 #define DD_SCK		DDB5
@@ -43,7 +44,7 @@
 void spi_master_init( void )
 {
 	DDR_SPI &= ~_BV(DD_MISO);
-	DDR_SPI |= (_BV(DD_MOSI) | _BV(DD_SCK));
+	DDR_SPI |= (_BV(DD_MOSI) | _BV(DD_SCK)) | _BV(DD_SS);
 	/* 19.5.1 SPCR – SPI Control Register
 	 *
 	 * • Bit 7 – SPIE: SPI Interrupt Enable
@@ -111,7 +112,7 @@ void spi_bulk_send( uint8_t *send_buffer, uint8_t count )
 	}
 }
 
-inline void spi_send( uint8_t send_data )
+void spi_send( uint8_t send_data )
 {
 	SPDR = send_data;
 	loop_until_bit_is_set(SPSR, SPIF);
@@ -126,7 +127,7 @@ void spi_bulk_exchange( uint8_t *send_buffer, uint8_t *receive_buffer, uint8_t c
 	}
 }
 
-inline uint8_t spi_exchange( uint8_t send_data )
+uint8_t spi_exchange( uint8_t send_data )
 {
 	SPDR = send_data;
 	loop_until_bit_is_set(SPSR, SPIF);
