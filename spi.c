@@ -40,6 +40,12 @@
 #define DD_MOSI		DDB3
 #define DD_MISO		DDB4
 #define DD_SCK		DDB5
+#elif defined(__AVR_ATmega2560__)
+#define DDR_SPI		DDRB
+#define DD_SS		DDB0
+#define DD_MOSI		DDB2
+#define DD_MISO		DDB3
+#define DD_SCK		DDB1
 #endif
 void spi_master_init( void )
 {

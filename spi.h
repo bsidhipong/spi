@@ -23,9 +23,9 @@ extern "C" {
 
 void spi_master_init( void );
 void spi_bulk_send( uint8_t *send_buffer, uint8_t count );
-inline void spi_send( uint8_t send_data );
+void spi_send( uint8_t send_data );
 void spi_bulk_exchange( uint8_t *send_buffer, uint8_t *receive_buffer, uint8_t count );
-inline uint8_t spi_exchange( uint8_t send_data );
+uint8_t spi_exchange( uint8_t send_data );
 
 #ifdef __cplusplus
 }
